@@ -1,0 +1,161 @@
+/* Estilos generales */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+.recursos-title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #2c3e50;
+  text-transform: uppercase;
+}
+
+.role-resource-container {
+  max-width: 70%;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.input-group {
+  display: flex;
+  gap: 20px; /* Espacio entre los elementos */
+  align-items: flex-start; /* Alinear elementos en la parte superior */
+  justify-content: center; /* Centrar en la pantalla */
+  flex-wrap: wrap; /* Permite que se adapten en pantallas pequeñas */
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column; /* Coloca el label arriba del select */
+  flex: 1;
+  min-width: 250px; /* Evita que se encojan demasiado */
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+button {
+  padding: 12px 24px;
+  width: 50%;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
+
+/* Estilos para la tabla */
+.table-container {
+  margin-top: 20px;
+  overflow-x: auto;
+  padding: 10px;
+}
+
+.resource-role-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.resource-role-table th,
+.resource-role-table td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+.resource-role-table th {
+  background-color: #34495e;
+  color: white;
+}
+
+/* Estilos diferenciados para jerarquía de recursos */
+.row {
+  background-color: #ecf0f1;
+  font-weight: bold;
+}
+
+.child-row {
+  background-color: #d5dbdb;
+}
+
+.grandchild-row {
+  background-color: #bfc9ca;
+}
+
+/* Estilos mejorados para los checkboxes */
+.custom-checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.custom-checkbox input[type="checkbox"] {
+  display: none;
+}
+
+.custom-checkbox .custom-label {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #2980b9;
+  border-radius: 4px;
+  background-color: white;
+  position: relative;
+}
+
+.custom-checkbox input[type="checkbox"]:checked + .custom-label {
+  background-color: #2980b9;
+}
+
+.custom-checkbox input[type="checkbox"]:checked + .custom-label::after {
+  content: "\2713";
+  font-size: 14px;
+  color: white;
+  position: absolute;
+}
