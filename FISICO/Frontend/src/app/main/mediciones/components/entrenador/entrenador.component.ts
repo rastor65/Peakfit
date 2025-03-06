@@ -7,6 +7,9 @@ import { Medicion } from 'src/app/models/medicion';
 import { MessageService } from 'primeng/api';
 import { EntrenadorService } from 'src/app/core/services/usuarios/entrenador.service';
 import { ConfirmationService } from 'primeng/api';
+import { UserService } from 'src/app/core/services/usuarios/user.service';
+import { Observable } from 'rxjs';
+import { Person } from 'src/app/models/user/person';
 
 
 @Component({
@@ -32,7 +35,7 @@ export class EntrenadorComponent implements OnInit {
   public trainers: any[] = [];
   public mediciones: any[] = [];
   usuarioId: number | undefined;
-  public dialog: boolean = false;
+  public dialogMediciones: boolean = false;
   dialogMedicion: boolean = false;
   public searchValue: string = '';
   public filterOptions: any[] = [];
@@ -71,7 +74,8 @@ export class EntrenadorComponent implements OnInit {
     private messageService: MessageService,
     private entrenadorService: EntrenadorService,
     private fb: FormBuilder,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private userService: UserService,
   ) { }
 
   ngOnInit(): void {
@@ -114,9 +118,33 @@ export class EntrenadorComponent implements OnInit {
       (data) => {
         this.alimentaciones = data;
         this.dialogAlimentacion = true;
+        this.alimentaciones.forEach((alimentacion: any) => {
+          if (alimentacion.entrenador) {
+            this.getNombre(alimentacion.entrenador).subscribe((persona:any) => {
+              if (persona.length > 0) {
+                alimentacion.entrenador = `${persona[0].nombres} ${persona[0].apellidos}`;
+              } else {
+                alimentacion.entrenador = "Desconocido"; // Si no hay datos
+              }
+            });
+          }
+          if (alimentacion.usuario) {
+            this.getNombre(alimentacion.usuario).subscribe((persona:any) => {
+              if (persona.length > 0) {
+                alimentacion.usuario = `${persona[0].nombres} ${persona[0].apellidos}`;
+              } else {
+                alimentacion.usuario = "Desconocido"; // Si no hay datos
+              }
+            });
+          }
+        });
       },
       (error) => console.error(error)
     );
+  }
+
+  getNombre(entrenadorId: number): Observable<Person[]> {
+    return this.userService.getPeopleByUserId(entrenadorId);
   }
 
   verUnaAlimentacion(alimentacion: any) {
@@ -218,6 +246,7 @@ export class EntrenadorComponent implements OnInit {
         (error) => console.error(error)
       );
     }
+    this.verAlimentacion(this.selectedTrainer)
   }
 
   guardarEntrenamiento() {
@@ -245,6 +274,7 @@ export class EntrenadorComponent implements OnInit {
         (error) => console.error(error)
       );
     }
+    this.verEntrenamiento(this.selectedTrainer)
   }
 
   eliminarAlimentacion(id: number) {
@@ -284,7 +314,29 @@ export class EntrenadorComponent implements OnInit {
   verEntrenamiento(trainer: any) {
     this.selectedTrainer = trainer;
     this.entrenadorService.getEntrenamientosPorUsuario(trainer.userId.id).subscribe(
-      (data) => this.entrenamientos = data,
+      (data) => {
+        this.entrenamientos = data;
+        this.entrenamientos.forEach((entrenamiento: any) => {
+          if (entrenamiento.entrenador) {
+            this.getNombre(entrenamiento.entrenador).subscribe((persona:any) => {
+              if (persona.length > 0) {
+                entrenamiento.entrenador = `${persona[0].nombres} ${persona[0].apellidos}`;
+              } else {
+                entrenamiento.entrenador = "Desconocido"; // Si no hay datos
+              }
+            });
+          }
+          if (entrenamiento.usuario) {
+            this.getNombre(entrenamiento.usuario).subscribe((persona:any) => {
+              if (persona.length > 0) {
+                entrenamiento.usuario = `${persona[0].nombres} ${persona[0].apellidos}`;
+              } else {
+                entrenamiento.usuario = "Desconocido"; // Si no hay datos
+              }
+            });
+          }
+        });
+      },
       (error) => console.error(error)
     );
     this.dialogEntrenamiento = true;
@@ -359,7 +411,7 @@ export class EntrenadorComponent implements OnInit {
       }
     );
 
-    this.dialog = true;
+    this.dialogMediciones = true;
   }
 
   cerrarMedicion() {
@@ -367,10 +419,9 @@ export class EntrenadorComponent implements OnInit {
   }
 
   cerrarDialogo() {
+    this.dialogMediciones = false;
     this.dialogAlimentacion = false;
     this.dialogFormularioAlimentacion = false;
-    this.selectedTrainer = null;
-    this.formData = {};
   }
 
   cerrarDialogoAlimentacion() {

@@ -46,7 +46,7 @@
 </div>
 
 <!-- MEDICIONES -->
-<p-dialog [(visible)]="dialog" [style]="{'width': '70vw'}" [resizable]="false" zindex="100" [modal]="true"
+<p-dialog [(visible)]="dialogMediciones" [style]="{'width': '70vw'}" [resizable]="false" zindex="100" [modal]="true"
   [closable]="true" [showHeader]="false">
   <ng-template pTemplate="content">
     <div *ngIf="selectedTrainer">
@@ -266,7 +266,6 @@
             <th>Nombre</th>
             <th>Calorías Diarias</th>
             <th>Entrenador</th>
-            <th>Usuario</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -275,7 +274,6 @@
             <td>{{ alimentacion.nombre }}</td>
             <td>{{ alimentacion.calorias_diarias }}</td>
             <td>{{ alimentacion.entrenador }}</td>
-            <td>{{ alimentacion.usuario }}</td>
             <td>
               <button pButton icon="pi pi-eye" class="btn-ver" (click)="verUnaAlimentacion(alimentacion)"></button>
               <button pButton icon="pi pi-pencil" class="btn-editar"
@@ -364,14 +362,9 @@
 
       <div class="form-group">
         <label for="entrenador">Entrenador</label>
-        <input type="text" id="entrenador" placeholder="Entrenador" pInputText
-          [(ngModel)]="formAlimentacion.entrenador">
-      </div>
-
-      <div class="form-group">
-        <label for="usuario">Usuario</label>
-        <input type="text" id="usuario" placeholder="Usuario" pInputText [(ngModel)]="formAlimentacion.usuario"
-          disabled>
+        <p-dropdown id="entrenador" [options]="filteredTrainers" [(ngModel)]="formAlimentacion.entrenador"
+          placeholder="Seleccione un entrenador" optionLabel="userId.first_name" optionValue="userId.id" [filter]="true">
+        </p-dropdown>
       </div>
 
       <div class="form-group">
@@ -410,7 +403,6 @@
             <th>Nombre</th>
             <th>Duración (semanas)</th>
             <th>Entrenador</th>
-            <th>Usuario</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -419,7 +411,6 @@
             <td>{{ entrenamiento.nombre }}</td>
             <td>{{ entrenamiento.duracion_semanas }}</td>
             <td>{{ entrenamiento.entrenador }}</td>
-            <td>{{ entrenamiento.usuario }}</td>
             <td>
               <button pButton icon="pi pi-eye" class="btn-ver" (click)="verUnEntrenamiento(entrenamiento)"></button>
               <button pButton icon="pi pi-pencil" class="btn-editar"
@@ -509,14 +500,9 @@
 
       <div class="form-group">
         <label for="entrenador">Entrenador</label>
-        <input type="text" id="entrenador" placeholder="Entrenador" pInputText
-          [(ngModel)]="formEntrenamiento.entrenador">
-      </div>
-
-      <div class="form-group">
-        <label for="usuario">Usuario</label>
-        <input type="text" id="usuario" placeholder="Usuario" pInputText [(ngModel)]="formEntrenamiento.usuario"
-          disabled>
+        <p-dropdown id="entrenador" [options]="filteredTrainers" [(ngModel)]="formAlimentacion.entrenador"
+          placeholder="Seleccione un entrenador" optionLabel="userId.first_name" optionValue="userId.id" [filter]="true">
+        </p-dropdown>
       </div>
 
       <div class="form-group">
