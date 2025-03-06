@@ -32,10 +32,8 @@ class tablaMaestraSerializer(serializers.ModelSerializer):
 #PERSON
 class PersonsSerializers(serializers.ModelSerializer):
     edad = serializers.SerializerMethodField()
-
     nombres = serializers.CharField(source="user.first_name", read_only=True)
     apellidos = serializers.CharField(source="user.last_name", read_only=True)
-
     document_type = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Tipo de documento"))
     nivelFormacion = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Nivel de formación"))
     estado_civil = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Estado civil"))
@@ -46,10 +44,18 @@ class PersonsSerializers(serializers.ModelSerializer):
     barrio = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Barrio"))
     situacion_laboral = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Situación Laboral"))
     estrato = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Estrato"))
+    genero = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Genero"))
+    user = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all())
 
     class Meta:
         model = Person
         fields = '__all__'  # Se incluirán "nombres" y "apellidos"
+
+    def create(self, validated_data):
+        user = validated_data.pop('user')  # Extrae el usuario (ya es un objeto)
+        person = Person.objects.create(user=user, **validated_data)  # Asigna el usuario correctamente
+        return person
+
 
     def get_edad(self, obj):
         """Calcula la edad en base a la fecha de nacimiento"""

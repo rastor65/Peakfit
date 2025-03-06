@@ -70,7 +70,6 @@ class Person(BaseModel):
     telefono = models.BigIntegerField(null=True)
     status = models.BooleanField(default=True)
     user = models.OneToOneField(CustomUser, related_name='person',on_delete=models.CASCADE)
-    
     document_type = models.ForeignKey(tablaMaestra, on_delete=models.SET_NULL, related_name="documentos", null=True, blank=False)
     nivelFormacion = models.ForeignKey(tablaMaestra, on_delete=models.SET_NULL, related_name="niveles_formacion", null=True, blank=False)
     estado_civil = models.ForeignKey(tablaMaestra, on_delete=models.SET_NULL, related_name="estados_civiles", null=True, blank=False)

@@ -212,9 +212,26 @@
 
 .button-container {
   display: flex;
-  justify-content: center;
-  gap: 10px;
+  justify-content: space-around; /* Distribuye los botones de manera uniforme */
+  gap: 10px; /* Espacio entre los botones */
   margin-top: 15px;
+  width: 100%;
+  flex-wrap: wrap; /* Permite que los botones se acomoden si el espacio es reducido */
+}
+
+.button-container button {
+  flex: 1 1 auto; /* Los botones se ajustan automáticamente */
+  min-width: 120px; /* Evita que sean demasiado pequeños */
+  white-space: nowrap; /* Evita que el texto se divida */
+  text-align: center;
+}
+
+.btn2 {
+  flex: 1; /* Hace que los botones ocupen el mismo espacio */
+  max-width: 180px; /* Evita que los botones sean demasiado grandes */
+  text-align: center;
+  padding: 8px 12px;
+  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
 }
 
 .form-wrapper {
@@ -263,13 +280,6 @@ input:focus {
   border-color: #007ad9;
   outline: none;
   box-shadow: 0px 0px 5px rgba(0, 122, 217, 0.3);
-}
-
-.button-container {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 20px;
 }
 
 .medicion {

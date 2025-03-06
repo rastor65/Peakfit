@@ -58,14 +58,15 @@ export class LandingComponent implements OnInit {
   }
 
   getBgColor(index: number): string {
-    const colors = ['bg-blue-500', 'bg-purple-500', 'bg-indigo-500', 'bg-orange-500'];
-    return colors[index % colors.length];
+    const shades = ['bg-blue-500', 'bg-purple-500'];
+    return shades[index % shades.length];
   }
-
+  
   getIconBgColor(index: number): string {
-    const colors = ['bg-blue-600', 'bg-purple-600', 'bg-indigo-600', 'bg-orange-600'];
-    return colors[index % colors.length];
-  }
+    const shades = ['bg-blue-600', 'bg-purple-600'];
+    return shades[index % shades.length];
+  }  
+
 
   navigateWithDelay(link: string, event: Event) {
     event.stopPropagation(); // Evita eventos inesperados

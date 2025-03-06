@@ -3,6 +3,7 @@ import { EntrenadorService } from 'src/app/core/services/usuarios/entrenador.ser
 import { UserService } from 'src/app/core/services/usuarios/user.service';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { forkJoin } from 'rxjs';
+import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user/person';
 import { Person } from 'src/app/models/user/person';
 
@@ -41,8 +42,24 @@ export class EntrenamientoComponent implements OnInit {
     if (this.usuarioId != undefined) {
       this.entrenadorService.getEntrenamientosPorUsuario(this.usuarioId).subscribe((data) => {
         this.entrenamientos = data;
+
+        this.entrenamientos.forEach((entrenamiento: any) => {
+          if (entrenamiento.entrenador) {
+            this.getEntrenadorNombre(entrenamiento.entrenador).subscribe((persona) => {
+              if (persona.length > 0) {
+                entrenamiento.entrenador = `${persona[0].nombres} ${persona[0].apellidos}`;
+              } else {
+                entrenamiento.entrenador = "Desconocido"; // Si no hay datos
+              }
+            });
+          }
+        });
       });
     }
+  }
+
+  getEntrenadorNombre(entrenadorId: number): Observable<Person[]> {
+    return this.userService.getPeopleByUserId(entrenadorId);
   }
 
   loadUser() {
