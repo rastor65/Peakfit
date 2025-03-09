@@ -54,7 +54,7 @@
         <h2>{{ selectedTrainer.userId.first_name }} {{ selectedTrainer.userId.last_name }}</h2>
       </div>
       <div class="medicion">
-        <button pButton icon="pi pi-plus" label="Agregar medición" class="btn-medicion"
+        <button pButton icon="pi pi-plus" label="Agregar medición" class="btn-agregar"
           (click)="abrirMedicion()"></button>
       </div>
       <div class="card">
@@ -256,7 +256,7 @@
         <h2>{{ selectedTrainer.userId.first_name }} {{ selectedTrainer.userId.last_name }}</h2>
       </div>
       <div class="alimentacion">
-        <button class="btn2" (click)="abrirFormularioAlimentacion()">
+        <button class="btn-agregar" (click)="abrirFormularioAlimentacion()">
           <i class="pi pi-plus-circle"></i> Nuevo plan</button>
       </div>
 
@@ -284,7 +284,6 @@
           </tr>
         </tbody>
       </table>
-
       <!-- Mensaje cuando no hay datos -->
       <ng-template #noData>
         <p class="no-data">No hay planes de alimentación disponibles.</p>
@@ -393,7 +392,7 @@
       </div>
 
       <div class="alimentacion">
-        <button class="btn2" (click)="abrirFormularioEntrenamiento()">
+        <button class="btn-agregar" (click)="abrirFormularioEntrenamiento()">
           <i class="pi pi-plus-circle"></i> Nuevo plan</button>
       </div>
 

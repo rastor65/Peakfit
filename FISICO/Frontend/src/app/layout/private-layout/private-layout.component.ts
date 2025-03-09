@@ -267,6 +267,7 @@ export class PrivateLayoutComponent implements OnInit {
       id: this.usuario.id,
       user: this.usuarioId,
       edad: this.usuario.edad,
+      genero: this.usuario.genero,
       barrio: this.usuario.barrio,
       estrato: this.usuario.estrato,
       nombres: this.usuario.nombres,
