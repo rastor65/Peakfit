@@ -1,4 +1,3 @@
-/* Título */
 .mediciones-title {
   font-size: 28px;
   font-weight: bold;
@@ -19,7 +18,6 @@
   margin-bottom: 1rem;
 }
 
-/* Controles de búsqueda y filtro */
 .p-personas-controls {
   display: flex;
   justify-content: space-between;
@@ -32,14 +30,12 @@
   width: 220px;
 }
 
-/* Contenedor de tarjetas: grid responsivo */
 .card-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(35%, 1fr));
   gap: 20px;
 }
 
-/* Estilo de la tarjeta */
 .trainer-card {
   border-radius: 10px;
   overflow: hidden;
@@ -51,7 +47,6 @@
   transform: translateY(-5px);
 }
 
-/* Header de la tarjeta con gradiente */
 .card-header {
   display: flex;
   align-items: center;
@@ -76,7 +71,6 @@
   opacity: 0.9;
 }
 
-/* Contenido de la tarjeta */
 .card-content {
   padding: 15px;
   background: #fff;
@@ -93,7 +87,6 @@
   color: #007ad9;
 }
 
-/* Footer de la tarjeta */
 .card-footer {
   padding: 15px;
   text-align: right;
@@ -104,7 +97,6 @@
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
   min-height: 120px;
-  /* Reduce la altura de la tarjeta */
 }
 
 .clickable-card:hover {
@@ -134,14 +126,11 @@
 .p-personas-controls {
   display: flex;
   justify-content: center;
-  /* Centrar horizontalmente */
   align-items: center;
-  /* Centrar verticalmente si es necesario */
   width: 100%;
   margin-bottom: 20px;
 }
 
-/* Contenedor principal de la barra de búsqueda */
 .p-personas-search {
   position: relative;
   display: flex;
@@ -154,13 +143,11 @@
   transition: box-shadow 0.3s ease-in-out;
 }
 
-/* Efecto de hover y focus */
 .p-personas-search:hover,
 .p-personas-search:focus-within {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Contenedor del icono */
 .search-icon-container {
   display: flex;
   align-items: center;
@@ -170,7 +157,6 @@
   font-size: 1.3rem;
 }
 
-/* Estilo del input de búsqueda */
 .search-box {
   flex: 1;
   width: 100%;
@@ -212,26 +198,26 @@
 
 .button-container {
   display: flex;
-  justify-content: space-around; /* Distribuye los botones de manera uniforme */
-  gap: 10px; /* Espacio entre los botones */
+  justify-content: space-around;
+  gap: 10px;
   margin-top: 15px;
   width: 100%;
-  flex-wrap: wrap; /* Permite que los botones se acomoden si el espacio es reducido */
+  flex-wrap: wrap;
 }
 
 .button-container button {
-  flex: 1 1 auto; /* Los botones se ajustan automáticamente */
-  min-width: 120px; /* Evita que sean demasiado pequeños */
-  white-space: nowrap; /* Evita que el texto se divida */
+  flex: 1 1 auto;
+  min-width: 120px;
+  white-space: nowrap;
   text-align: center;
 }
 
 .btn2 {
-  flex: 1; /* Hace que los botones ocupen el mismo espacio */
-  max-width: 180px; /* Evita que los botones sean demasiado grandes */
+  flex: 1;
+  max-width: 180px;
   text-align: center;
   padding: 8px 12px;
-  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+  white-space: nowrap;
 }
 
 .form-wrapper {
@@ -288,10 +274,9 @@ input:focus {
   justify-content: center;
   align-items: center;
   width: 100%;
-  /* Asegura que el contenedor ocupe todo el ancho disponible */
 }
 
-.btn-medicion {
+.btn-agregar {
   align-items: center;
   justify-content: center;
   align-items: center;
@@ -309,12 +294,11 @@ input:focus {
   transition: all 0.3s ease-in-out;
 }
 
-.btn-medicion:hover {
+.btn-agregar:hover {
   background: #090909;
   color: #fafafa;
 }
 
-/* Estilos generales */
 .card {
   background: #ffffff;
   border-radius: 10px;
@@ -331,14 +315,12 @@ h2 {
   margin-bottom: 4px;
 }
 
-/* Estilos de la tabla */
 .mediciones-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
 }
 
-/* Encabezados */
 .mediciones-table thead {
   background: #007bff;
   color: white;
@@ -349,25 +331,21 @@ h2 {
   font-size: 16px;
 }
 
-/* Filas */
 .mediciones-table td {
   padding: 12px;
   border-bottom: 1px solid #ddd;
 }
 
-/* Efecto hover */
 .mediciones-table tbody tr:hover {
   background: #f2f2f2;
   cursor: pointer;
 }
 
-/* Contenedor de botones en la celda */
 td {
   justify-content: center;
   gap: 8px;
 }
 
-/* Estilo base de los botones */
 .btn-ver,
 .btn-editar,
 .btn-eliminar {
@@ -384,23 +362,18 @@ td {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Estilo específico por acción */
 .btn-ver {
   background-color: #007bff;
-  /* Azul */
 }
 
 .btn-editar {
   background-color: #ffc107;
-  /* Amarillo */
 }
 
 .btn-eliminar {
   background-color: #dc3545;
-  /* Rojo */
 }
 
-/* Efectos hover */
 .btn-ver:hover {
   background-color: #0056b3;
   transform: scale(1.1);
@@ -419,7 +392,6 @@ td {
   box-shadow: 0 0 8px rgba(220, 53, 69, 0.5);
 }
 
-/* Animación de clic */
 .btn-ver:active,
 .btn-editar:active,
 .btn-eliminar:active {
@@ -435,36 +407,24 @@ td {
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* IMC Bajo Peso */
 .bajo-peso {
   background-color: #b3e5fc;
-  /* Azul claro */
   color: #01579b;
-  /* Azul oscuro */
 }
 
-/* IMC Normal */
 .normal {
   background-color: #a5d6a7;
-  /* Verde claro */
   color: #1b5e20;
-  /* Verde oscuro */
 }
 
-/* IMC Sobrepeso */
 .sobrepeso {
   background-color: #ffcc80;
-  /* Naranja suave */
   color: #e65100;
-  /* Naranja oscuro */
 }
 
-/* IMC Obesidad */
 .obesidad {
   background-color: #ef9a9a;
-  /* Rojo claro */
   color: #b71c1c;
-  /* Rojo oscuro */
 }
 
 .imc-message {
@@ -495,6 +455,8 @@ td {
   width: 100%;
   border-collapse: collapse;
   font-family: Arial, sans-serif;
+  padding: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   margin: 20px 0;
   font-size: 18px;
   text-align: left;
@@ -505,7 +467,8 @@ td {
   color: white;
 }
 
-.styled-table th, .styled-table td {
+.styled-table th,
+.styled-table td {
   padding: 10px;
   border: 1px solid #ddd;
 }
@@ -591,8 +554,8 @@ td {
 }
 
 .descripcion-text {
-  max-height: 120px;  /* Altura máxima de la descripción */
-  overflow-y: auto;   /* Scroll si el texto es muy largo */
+  max-height: 120px;
+  overflow-y: auto;
   padding: 5px;
   background: #fff;
   border-radius: 6px;
@@ -607,11 +570,18 @@ td {
   border-radius: 6px;
   border: 1px solid #ccc;
   font-size: 14px;
-  resize: vertical; /* Permite ajustar manualmente la altura */
+  resize: vertical;
 }
 
 .descripcion-textarea:focus {
   border-color: #007bff;
   outline: none;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.alimentacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
