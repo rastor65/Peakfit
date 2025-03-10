@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { forkJoin } from 'rxjs';
 import { MedicionService } from 'src/app/core/services/usuarios/medicion.service';
 import { MessageService } from 'primeng/api';
+import { ChartData } from 'chart.js';
 
 @Component({
   selector: 'app-perfil',
@@ -22,6 +23,12 @@ export class PerfilComponent implements OnInit {
   usuarioId: number | undefined;
   dialogMedicion: boolean = false;
   public person: Person | null = null;
+  dialogEstadisticas: boolean = false;
+
+  chartLabels: string[] = [];
+  pesoChartData: ChartData<'line'> = { datasets: [] };
+  imcChartData: ChartData<'line'> = { datasets: [] };
+  fuerzaChartData: ChartData<'bar'> = { datasets: [] };
 
   public user: User = {
     id: 0,
@@ -78,6 +85,41 @@ export class PerfilComponent implements OnInit {
     this.esEdicion = true;
     this.formData = {};
     this.dialogMedicion = true;
+  }
+
+  abrirEstadisticas() {
+    this.dialogEstadisticas = true;
+    this.prepararDatosEstadisticos();
+  }
+
+  cerrarEstadisticas() {
+    this.dialogEstadisticas = false;
+  }
+
+  prepararDatosEstadisticos() {
+    this.chartLabels = this.mediciones.map(m => m.Fecha);
+
+    this.pesoChartData = {
+      labels: this.chartLabels,
+      datasets: [
+        { data: this.mediciones.map(m => m.peso), label: 'Peso (Kg)', borderColor: '#42A5F5', fill: false }
+      ]
+    };
+
+    this.imcChartData = {
+      labels: this.chartLabels,
+      datasets: [
+        { data: this.mediciones.map(m => m.imc), label: 'IMC', borderColor: '#FFA726', fill: false }
+      ]
+    };
+
+    this.fuerzaChartData = {
+      labels: this.chartLabels,
+      datasets: [
+        { data: this.mediciones.map(m => m.fuerza_manoderecha), label: 'Fuerza Mano Derecha', backgroundColor: '#66BB6A' },
+        { data: this.mediciones.map(m => m.fuerza_manoizquierda), label: 'Fuerza Mano Izquierda', backgroundColor: '#FF7043' }
+      ]
+    };
   }
 
   verMedicion(medicion: any) {

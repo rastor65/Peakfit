@@ -1,9 +1,13 @@
 <div class="container" *ngIf="person">
     <img [src]="profileImage" alt="Avatar de usuario" class="user-avatar">
-    <h2>{{ person.nombres }} {{ person.apellidos }}</h2>
+    <h2>{{ person.nombres }} {{ person.apellidos }}
+        <button pButton icon="pi pi-chart-bar" label="Estadisticas" class="btn-medicion"
+            style="width: 300px; justify-content: right;" (click)="abrirEstadisticas()"></button>
+    </h2>
 </div>
 <div class="medicion">
-    <button pButton icon="pi pi-plus" label="Agregar medición" class="btn-medicion" (click)="abrirMedicion()"></button>
+    <button pButton icon="pi pi-plus" label="Agregar medición" class="btn-medicion"
+        (click)="abrirMedicion()"></button>
 </div>
 
 <br>
@@ -184,5 +188,18 @@
                     <i class="pi pi-times"></i> Cancelar</button>
             </div>
         </div>
+    </div>
+</p-dialog>
+
+
+<p-dialog [(visible)]="dialogEstadisticas" [style]="{'width': '80vw'}" [resizable]="false" zindex="10000"
+    [showHeader]="false" [closeOnEscape]="false" [closable]="false" [modal]="true">
+    
+
+
+    <div class="p-grid p-nogutter p-align-center header-container"></div>
+    <div class="button-container">
+        <button class="btn" (click)="cerrarEstadisticas()">
+            <i class="pi pi-times"></i> Cerrar</button>
     </div>
 </p-dialog>
