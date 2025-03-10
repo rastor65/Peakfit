@@ -12,7 +12,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { RippleModule } from 'primeng/ripple';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-
+import { NgChartsModule } from 'ng2-charts';
 import { HttpClientModule } from '@angular/common/http';
 import { CardModule } from 'primeng/card';
 import { MenuModule } from 'primeng/menu';
@@ -70,21 +70,18 @@ import { MedicionesComponent } from './main/mediciones/mediciones.component';
     CommonModule,
     AppRoutingModule,
     RouterModule,
-
     PublicLayoutModule,
     PrivateLayoutModule,
     HttpClientModule,
     FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
-
     DividerModule,
     ButtonModule,
     CheckboxModule,
     RadioButtonModule,
     RippleModule,
     InputTextModule,
-
     CardModule,
     MenuModule,
     MessagesModule,
@@ -116,6 +113,7 @@ import { MedicionesComponent } from './main/mediciones/mediciones.component';
     FileUploadModule,
     InputTextareaModule,
     RecursosRoutingModule,
+    NgChartsModule,
 
   ],
   providers: [ConfirmationService, MessageService, CdkVirtualScrollViewport,
