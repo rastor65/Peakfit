@@ -418,6 +418,10 @@ export class UserService {
     }
   }
 
+  crearPerson(usuario: Person): Observable<any> {
+    return this.http.post(this.base_personas, usuario);
+  }
+
   getPeopleByUserId(userId: number): Observable<Person[]> {
     const url = `${this.base_personas}?user=${userId}`;
 

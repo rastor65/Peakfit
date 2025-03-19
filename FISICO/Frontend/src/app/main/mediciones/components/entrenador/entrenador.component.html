@@ -9,6 +9,11 @@
   </div>
 </div>
 
+<div *ngIf="cargando" class="loading-container">
+  <p-progressSpinner styleClass="spinner"></p-progressSpinner>
+  <span class="loading-text">Cargando usuarios...</span>
+</div>
+
 <!-- CARDS -->
 <div class="card-container">
   <p-card *ngFor="let trainer of filteredTrainers" class="trainer-card clickable-card">
@@ -74,7 +79,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let medicion of medicionesUsuario">
-              <td>{{ medicion.Fecha }}</td>
+              <td>{{ medicion.fecha }}</td>
               <td>{{ medicion.talla }}</td>
               <td>{{ medicion.peso }} kg</td>
               <td [ngClass]="getIMCClass(medicion.imc)" class="imc-cell" (click)="mostrarEstadoIMC(medicion.imc)">
@@ -362,7 +367,8 @@
       <div class="form-group">
         <label for="entrenador">Entrenador</label>
         <p-dropdown id="entrenador" [options]="filteredTrainers" [(ngModel)]="formAlimentacion.entrenador"
-          placeholder="Seleccione un entrenador" optionLabel="userId.first_name" optionValue="userId.id" [filter]="true">
+          placeholder="Seleccione un entrenador" optionLabel="userId.first_name" optionValue="userId.id"
+          [filter]="true">
         </p-dropdown>
       </div>
 
@@ -500,7 +506,8 @@
       <div class="form-group">
         <label for="entrenador">Entrenador</label>
         <p-dropdown id="entrenador" [options]="filteredTrainers" [(ngModel)]="formAlimentacion.entrenador"
-          placeholder="Seleccione un entrenador" optionLabel="userId.first_name" optionValue="userId.id" [filter]="true">
+          placeholder="Seleccione un entrenador" optionLabel="userId.first_name" optionValue="userId.id"
+          [filter]="true">
         </p-dropdown>
       </div>
 

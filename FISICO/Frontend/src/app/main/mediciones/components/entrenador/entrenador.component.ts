@@ -27,6 +27,7 @@ export class EntrenadorComponent implements OnInit {
   formData: any = {};
   estadoIMC: string = '';
   alimentacion: any[] = [];
+  cargando: boolean = true;
   entrenamiento: any[] = [];
   alimentaciones: any[] = [];
   entrenamientos: any[] = [];
@@ -85,6 +86,7 @@ export class EntrenadorComponent implements OnInit {
   }
 
   getTrainers(): void {
+    this.cargando = true;
     this.usuariosService.getAllRoles().subscribe(
       (response: any) => {
         const unique = new Map();
@@ -96,6 +98,7 @@ export class EntrenadorComponent implements OnInit {
         });
         this.trainers = Array.from(unique.values());
         this.filteredTrainers = this.trainers;
+        this.cargando = false;
       },
       (error: any) => {
         console.error(error);

@@ -8,6 +8,8 @@ import { MedicionService } from 'src/app/core/services/usuarios/medicion.service
 import { MessageService } from 'primeng/api';
 import { ChartData } from 'chart.js';
 
+declare var Chart: any;
+
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
@@ -24,11 +26,12 @@ export class PerfilComponent implements OnInit {
   dialogMedicion: boolean = false;
   public person: Person | null = null;
   dialogEstadisticas: boolean = false;
-
   chartLabels: string[] = [];
-  pesoChartData: ChartData<'line'> = { datasets: [] };
-  imcChartData: ChartData<'line'> = { datasets: [] };
-  fuerzaChartData: ChartData<'bar'> = { datasets: [] };
+
+
+  pesoChart: any;
+  imcChart: any;
+  fuerzaChart: any;
 
   public user: User = {
     id: 0,
@@ -49,6 +52,7 @@ export class PerfilComponent implements OnInit {
     this.usuarioId = this.authService.getUserId();
     this.loadUser();
     this.cargarMediciones();
+    this.chartLabels = [];
   }
 
   loadUser() {
@@ -74,6 +78,7 @@ export class PerfilComponent implements OnInit {
       this.medicionService.obtenerMedicionesPorUsuario(this.usuarioId).subscribe({
         next: (data) => {
           this.mediciones = data;
+          this.chartLabels = this.mediciones.map(m => m.fecha ?? 'Sin fecha'); // Evitar undefined
         },
         error: (err) => {
           console.error('Error al cargar mediciones:', err);
@@ -81,6 +86,8 @@ export class PerfilComponent implements OnInit {
       });
     }
   }
+
+
   abrirMedicion() {
     this.esEdicion = true;
     this.formData = {};
@@ -88,38 +95,82 @@ export class PerfilComponent implements OnInit {
   }
 
   abrirEstadisticas() {
+    if (this.mediciones.length === 0 || this.chartLabels.length === 0) {
+      console.warn('No hay datos para mostrar en los gráficos');
+      return;
+    }
     this.dialogEstadisticas = true;
-    this.prepararDatosEstadisticos();
+    setTimeout(() => this.dibujarGraficos(), 100);
   }
+
 
   cerrarEstadisticas() {
     this.dialogEstadisticas = false;
   }
 
-  prepararDatosEstadisticos() {
-    this.chartLabels = this.mediciones.map(m => m.Fecha);
+  dibujarGraficos() {
+    if (!this.chartLabels || this.chartLabels.length === 0) {
+      console.warn('chartLabels no tiene datos válidos.');
+      return;
+    }
 
-    this.pesoChartData = {
-      labels: this.chartLabels,
-      datasets: [
-        { data: this.mediciones.map(m => m.peso), label: 'Peso (Kg)', borderColor: '#42A5F5', fill: false }
-      ]
-    };
+    if (this.pesoChart) this.pesoChart.destroy();
+    if (this.imcChart) this.imcChart.destroy();
+    if (this.fuerzaChart) this.fuerzaChart.destroy();
 
-    this.imcChartData = {
-      labels: this.chartLabels,
-      datasets: [
-        { data: this.mediciones.map(m => m.imc), label: 'IMC', borderColor: '#FFA726', fill: false }
-      ]
-    };
+    const pesoCanvas = document.getElementById('pesoChart') as HTMLCanvasElement;
+    const imcCanvas = document.getElementById('imcChart') as HTMLCanvasElement;
+    const fuerzaCanvas = document.getElementById('fuerzaChart') as HTMLCanvasElement;
 
-    this.fuerzaChartData = {
-      labels: this.chartLabels,
-      datasets: [
-        { data: this.mediciones.map(m => m.fuerza_manoderecha), label: 'Fuerza Mano Derecha', backgroundColor: '#66BB6A' },
-        { data: this.mediciones.map(m => m.fuerza_manoizquierda), label: 'Fuerza Mano Izquierda', backgroundColor: '#FF7043' }
-      ]
-    };
+    if (!pesoCanvas || !imcCanvas || !fuerzaCanvas) {
+      console.warn('No se encontraron los elementos canvas.');
+      return;
+    }
+
+    this.pesoChart = new Chart(pesoCanvas, {
+      type: 'line',
+      data: {
+        labels: this.chartLabels,
+        datasets: [{
+          data: this.mediciones.map(m => m.peso),
+          label: 'Peso (Kg)',
+          borderColor: '#42A5F5',
+          fill: false
+        }]
+      }
+    });
+
+    this.imcChart = new Chart(imcCanvas, {
+      type: 'line',
+      data: {
+        labels: this.chartLabels,
+        datasets: [{
+          data: this.mediciones.map(m => m.imc),
+          label: 'IMC',
+          borderColor: '#FFA726',
+          fill: false
+        }]
+      }
+    });
+
+    this.fuerzaChart = new Chart(fuerzaCanvas, {
+      type: 'bar',
+      data: {
+        labels: this.chartLabels,
+        datasets: [
+          {
+            data: this.mediciones.map(m => m.fuerza_manoderecha),
+            label: 'Fuerza Mano Derecha',
+            backgroundColor: '#66BB6A'
+          },
+          {
+            data: this.mediciones.map(m => m.fuerza_manoizquierda),
+            label: 'Fuerza Mano Izquierda',
+            backgroundColor: '#FF7043'
+          }
+        ]
+      }
+    });
   }
 
   verMedicion(medicion: any) {
@@ -192,6 +243,7 @@ export class PerfilComponent implements OnInit {
     setTimeout(() => {
       this.estadoIMC = '';
     }, 3000);
-  }
 
+  }
+  
 }

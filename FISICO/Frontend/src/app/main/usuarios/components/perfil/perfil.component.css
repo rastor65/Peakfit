@@ -288,6 +288,156 @@ td {
   animation: fadeIn 0.3s ease-in-out;
 }
 
+
+
+/* 🔹 Encabezado del diálogo */
+.dialog-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.dialog-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.dialog-header h2::after {
+  content: "";
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #007ad9, #0099ff);
+  display: block;
+  margin: 8px auto 0;
+  border-radius: 4px;
+}
+
+/* 🔹 Contenedor de las tarjetas de gráficos */
+.charts-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  padding: 16px;
+}
+
+/* 🔹 Contenedor de los gráficos */
+.chart-card {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  width: 70%;
+  backdrop-filter: blur(12px);
+}
+
+.chart-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+}
+
+/* 🔹 Tarjeta de ancho completo */
+.full-width {
+  width: 100%;
+}
+
+/* 🔹 Títulos */
+h3 {
+  font-size: 1.4rem;
+  color: #444;
+  font-weight: 600;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  position: relative;
+  padding-bottom: 8px;
+}
+
+h3::after {
+  content: "";
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, #007ad9, #0099ff);
+  display: block;
+  margin: 10px auto 0;
+  border-radius: 4px;
+}
+
+canvas {
+  width: 100% !important;
+  height: auto;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 14px;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: scale(0.9);
+  }
+  to {
+      opacity: 1;
+      transform: scale(1);
+  }
+}
+
+canvas {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* 🔹 Efecto al pasar el mouse sobre los gráficos */
+canvas:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* 🔹 Contenedor del botón */
+.button-container {
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+}
+
+/* 🔹 Botón de cierre */
+.btn-close {
+  background: linear-gradient(135deg, #ff5757 0%, #e04040 100%);
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 50%;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 16px rgba(255, 87, 87, 0.4);
+}
+
+.btn-close:hover {
+  background: linear-gradient(135deg, #e04040 0%, #c03030 100%);
+  box-shadow: 0 8px 24px rgba(255, 87, 87, 0.5);
+  transform: scale(1.02);
+}
+
+/* 🔹 Ícono dentro del botón */
+.pi-times {
+  font-size: 1.5rem;
+}
+
+
 @keyframes fadeIn {
   from {
     opacity: 0;

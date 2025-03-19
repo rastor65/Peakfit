@@ -9,7 +9,7 @@ import { UserService } from 'src/app/core/services/usuarios/user.service';
 import { RoleI } from 'src/app/models/authorization/usr_roles';
 import { UsuariosService } from 'src/app/core/services/dashboard/usuarios.service';
 import { HttpHeaders } from '@angular/common/http';
-
+import { Person } from 'src/app/models/user/person';
 
 @Component({
   selector: 'app-form-login',
@@ -194,10 +194,39 @@ export class FormLoginComponent implements OnInit {
                   (userData) => {
                     if (userData) {
                       const userId = userData.id;
+                      const personData: Person = {
+                        id: null,
+                        nombres: formValue.first_name,
+                        apellidos: formValue.last_name,
+                        user: userId, 
+                        edad: 0,
+                        document_type: null,
+                        nivelFormacion: null,
+                        estado_civil: null,
+                        grupoEtnico: null,
+                        departamento: null,
+                        ciudad_residencia: null,
+                        ciudad_nacimiento: null,
+                        barrio: null,
+                        situacion_laboral: null,
+                        estrato: null,
+                        genero: null,
+                      };
+                      this.userService.crearPerson(personData).subscribe(
+                        (response) => {
+                          if (response) {
+                            this.messageService.add({ severity: 'success', summary: 'Registro', detail: 'Registro de usuario y persona exitoso.' });
+                          }
+                        },
+                        (error) => {
+                          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo registrar la persona.' });
+                          console.error('Error al registrar la persona:', error);
+                        }
+                      );
                       const userRoleData = {
                         status: true,
                         userId: userId,
-                        rolesId: 3,
+                        rolesId:2,
                       };
                       const bodyString = JSON.stringify(userRoleData);
                       const httpOptions = {
@@ -211,9 +240,10 @@ export class FormLoginComponent implements OnInit {
                           if (response.status) {
                             this.messageService.add({ severity: 'success', summary: 'Registro', detail: 'Registro de estudiante exitoso.' });
                           }
+                          this.finalizarRegistro();
                         },
                         (error) => {
-                          console.error('Error al asignar el rol "autor" al usuario', error);
+                          console.error('Error al asignar el rol "estudiante" al usuario', error);
                           this.showProgressBar = false;
                         }
                       );
@@ -239,6 +269,12 @@ export class FormLoginComponent implements OnInit {
         this.showProgressBar = false;
       }
     }
+  }
+
+  private finalizarRegistro() {
+    this.bandera = false;
+    this.showProgressBar = false;
+    this.formRegister.reset(); // Limpia el formulario
   }
 
 }

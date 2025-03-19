@@ -18,17 +18,17 @@ export interface categoriaTablaMaestra {
 }
 
 export interface Person {
-  id: number;
+  id: number | null;
   nombres?: string;
   apellidos?: string;
   identificacion?: string;
-  departamento?: string;
+  departamento?: number | null
   fecha_nacimiento?: string;
-  ciudad_residencia?: string;
-  ciudad_nacimiento?: string;
-  barrio?: string;
-  situacion_laboral?: string;
-  estrato?: number;
+  ciudad_residencia?: number | null;
+  ciudad_nacimiento?: number | null;
+  barrio?: number | null;
+  situacion_laboral?: number | null;
+  estrato?: number | null;
   telefono?: number;
   user?: number | null;
   document_type?: number | null;

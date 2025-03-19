@@ -149,7 +149,7 @@ DATABASES = {
         'PASSWORD': '',
         'HOST': '127.0.0.1',
         'PORT': '3306', 
-        'OPTIONS': {'sql_mode': 'STRICT_ALL_TABLES'},
+        'OPTIONS': {'sql_mode': 'STRICT_ALL_TABLES', 'charset': 'utf8mb4',},
     }
 }
 
@@ -179,6 +179,7 @@ REST_FRAMEWORK = {
         #'rest_framework.authentication.TokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
+    
 }
 
 ###   SIMPLE JWT
@@ -225,13 +226,11 @@ CACHES = {
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
 
-LANGUAGE_CODE = 'en-us'
-
+LANGUAGE_CODE = 'es-es'
 TIME_ZONE = 'America/Bogota'
-
 USE_I18N = True
-
 USE_TZ = False
+DEFAULT_CHARSET = 'utf-8'
 
 
 # Static files (CSS, JavaScript, Images)

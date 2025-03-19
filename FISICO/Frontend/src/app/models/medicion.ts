@@ -2,7 +2,7 @@ export interface Medicion {
     id: number;
     imc: number;
     icc: number;
-    Fecha: string; // Puede ser Date si deseas manejarlo como objeto de fecha
+    fecha: string; // Puede ser Date si deseas manejarlo como objeto de fecha
     talla: number;
     peso: number;
     perimetro_cintura: number;

@@ -22,29 +22,29 @@ class UserSerialSimple(ModelSerializer):
 class categoriaTipoSerializer(serializers.ModelSerializer):
     class Meta:
         model = categoriaTipo
-        fields = ['id', 'nombre']
+        fields = '__all__'
 
 class tablaMaestraSerializer(serializers.ModelSerializer):
     class Meta:
         model = tablaMaestra
-        fields = ['id', 'categoria', 'nombre', 'codigo']
+        fields = '__all__'
 
 #PERSON
 class PersonsSerializers(serializers.ModelSerializer):
     edad = serializers.SerializerMethodField()
     nombres = serializers.CharField(source="user.first_name", read_only=True)
     apellidos = serializers.CharField(source="user.last_name", read_only=True)
-    document_type = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Tipo de documento"))
-    nivelFormacion = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Nivel de formación"))
-    estado_civil = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Estado civil"))
-    grupoEtnico = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Grupo étnico"))
-    departamento = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Departamento"))
-    ciudad_residencia = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Ciudad"))
-    ciudad_nacimiento = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Ciudad"))
-    barrio = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Barrio"))
-    situacion_laboral = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Situación Laboral"))
-    estrato = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Estrato"))
-    genero = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Genero"))
+    document_type = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Tipo de documento"), allow_null=True, required=False)
+    nivelFormacion = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Nivel de formación"), allow_null=True, required=False)
+    estado_civil = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Estado civil"), allow_null=True, required=False)
+    grupoEtnico = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Grupo étnico"), allow_null=True, required=False)
+    departamento = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Departamento"), allow_null=True, required=False)
+    ciudad_residencia = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Ciudad"), allow_null=True, required=False)
+    ciudad_nacimiento = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Ciudad"), allow_null=True, required=False)
+    barrio = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Barrio"), allow_null=True, required=False)
+    situacion_laboral = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Situación Laboral"), allow_null=True, required=False)
+    estrato = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Estrato"), allow_null=True, required=False)
+    genero = serializers.PrimaryKeyRelatedField(queryset=tablaMaestra.objects.filter(categoria__nombre="Genero"), allow_null=True, required=False)
     user = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all())
 
     class Meta:

@@ -5,6 +5,7 @@ import { RolesComponent } from './components/roles/roles.component';
 import { RecursosComponent } from './components/recursos/recursos.component';
 import { UserRolesComponent } from './components/user-roles/user-roles.component';
 import { TablaMaestraComponent } from './components/tabla-maestra/tabla-maestra.component';
+import { UsuariosComponent } from './components/usuarios/usuarios.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,10 @@ const routes: Routes = [
   {
     path: 'tabla_maestra',
     component: TablaMaestraComponent
+  },
+  {
+    path: 'usuarios',
+    component: UsuariosComponent
   },
 ];
 

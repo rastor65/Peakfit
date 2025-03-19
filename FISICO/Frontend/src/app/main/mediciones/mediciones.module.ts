@@ -10,6 +10,7 @@ import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { CardModule } from 'primeng/card';
 import { AvatarModule } from 'primeng/avatar';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { AvatarModule } from 'primeng/avatar';
     FormsModule,
     CardModule,
     AvatarModule,
+    ProgressSpinnerModule,
   ]
 })
 
