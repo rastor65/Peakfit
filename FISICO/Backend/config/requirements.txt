@@ -1,3 +1,4 @@
+pip==23.2.1
 --no-build-isolation
 cffi==1.15.1
 ruamel.yaml.clib==0.2.7
