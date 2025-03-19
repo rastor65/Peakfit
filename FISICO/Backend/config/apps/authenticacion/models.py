@@ -29,6 +29,7 @@ class BaseModel(models.Model):
 
 class categoriaTipo(BaseModel):
     nombre = models.CharField(max_length=100, unique=True)
+    status = models.BooleanField(default=True)
     
     class Meta:
         verbose_name = "Categoría de Tipo"
@@ -42,6 +43,7 @@ class tablaMaestra(BaseModel):
     categoria = models.ForeignKey(categoriaTipo, on_delete=models.CASCADE, related_name="tipos")
     nombre = models.CharField(max_length=100)
     codigo = models.CharField(max_length=10, unique=True, blank=True, null=True)
+    status = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = "Tabla Tipo"
@@ -94,7 +96,7 @@ class Person(BaseModel):
         return f"{self.nombres} {self.apellidos} ({self.identificacion})"
 
     class Meta:
-        unique_together = (('user', 'identificacion'))
+        unique_together = (('user'),)
         verbose_name = 'Persona'
         verbose_name_plural = 'Personas'
 
@@ -142,7 +144,7 @@ class ResourceRol(BaseModel):
         ]
 
 class Medicion(BaseModel):
-    Fecha = models.DateField(auto_now_add=True)  # Asigna la fecha automáticamente
+    fecha = models.DateField(auto_now_add=True)  # Asigna la fecha automáticamente
     talla = models.FloatField()
     peso = models.FloatField()
     perimetro_cintura = models.FloatField(null=True)

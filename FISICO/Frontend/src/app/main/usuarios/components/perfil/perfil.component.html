@@ -1,3 +1,5 @@
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <div class="container" *ngIf="person">
     <img [src]="profileImage" alt="Avatar de usuario" class="user-avatar">
     <h2>{{ person.nombres }} {{ person.apellidos }}
@@ -6,8 +8,7 @@
     </h2>
 </div>
 <div class="medicion">
-    <button pButton icon="pi pi-plus" label="Agregar medición" class="btn-medicion"
-        (click)="abrirMedicion()"></button>
+    <button pButton icon="pi pi-plus" label="Agregar medición" class="btn-medicion" (click)="abrirMedicion()"></button>
 </div>
 
 <br>
@@ -30,7 +31,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let medicion of mediciones">
-                <td>{{ medicion.Fecha }}</td>
+                <td>{{ medicion.fecha }}</td>
                 <td>{{ medicion.talla }}</td>
                 <td>{{ medicion.peso }}</td>
                 <td [ngClass]="getIMCClass(medicion.imc)" class="imc-cell" (click)="mostrarEstadoIMC(medicion.imc)">
@@ -191,15 +192,32 @@
     </div>
 </p-dialog>
 
+<p-dialog [(visible)]="dialogEstadisticas" [style]="{'width': '80vw'}"
+    [resizable]="false" zindex="10000" [showHeader]="false" [closeOnEscape]="false"
+    [closable]="false" [modal]="true" class="custom-dialog">
 
-<p-dialog [(visible)]="dialogEstadisticas" [style]="{'width': '80vw'}" [resizable]="false" zindex="10000"
-    [showHeader]="false" [closeOnEscape]="false" [closable]="false" [modal]="true">
-    
+    <div class="dialog-header">
+        <h2>📊 Estadísticas de Seguimiento</h2>
+    </div>
 
+    <div class="charts-container">
+        <div class="chart-card">
+            <h3>Peso a lo largo del tiempo</h3>
+            <canvas id="pesoChart"></canvas>
+        </div>
+        <div class="chart-card">
+            <h3>Índice de Masa Corporal (IMC)</h3>
+            <canvas id="imcChart"></canvas>
+        </div>
+        <div class="chart-card full-width">
+            <h3>Fuerza de las manos</h3>
+            <canvas id="fuerzaChart"></canvas>
+        </div>
+    </div>
 
-    <div class="p-grid p-nogutter p-align-center header-container"></div>
     <div class="button-container">
-        <button class="btn" (click)="cerrarEstadisticas()">
-            <i class="pi pi-times"></i> Cerrar</button>
+        <button class="btn-close" (click)="cerrarEstadisticas()">
+            <i class="pi pi-times"></i> Cerrar
+        </button>
     </div>
 </p-dialog>

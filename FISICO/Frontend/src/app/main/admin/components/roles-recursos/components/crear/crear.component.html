@@ -8,27 +8,26 @@
       <div class="input-group">
         <div class="input-container">
           <label for="selectRole">Seleccionar un Rol:</label>
-          <select id="selectRole" name="selectedRole" [(ngModel)]="selectedRole" aria-label="Seleccionar un Rol">
-            <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
-          </select>
+          <p-dropdown id="selectRole" name="selectedRole" [options]="roles" [(ngModel)]="selectedRole"
+            placeholder="Seleccione un rol" optionLabel="name" optionValue="id" [filter]="true"></p-dropdown>
         </div>
 
         <div class="input-container">
           <label for="selectResource">Seleccionar un Recurso:</label>
-          <select id="selectResource" name="selectedResource" [(ngModel)]="selectedResource"
-            aria-label="Seleccionar un Recurso">
-            <option *ngFor="let resource of flattenedResources" [value]="resource.id">{{ resource.titulo }}</option>
-          </select>
+          <p-dropdown id="selectResource" name="selectResource" [options]="flattenedResources" [(ngModel)]="selectedResource"
+            placeholder="Seleccione un recurso" optionLabel="titulo" optionValue="id" [filter]="true"></p-dropdown>
         </div>
       </div>
 
       <div class="button-container">
-        <button type="submit">Asignar</button>
+        <button type="submit">
+          <i class="pi pi-check"></i> Asignar
+        </button>
       </div>
-
     </fieldset>
   </form>
 </div>
+
 
 <div class="table-container">
   <table class="resource-role-table">

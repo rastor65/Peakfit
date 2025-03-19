@@ -23,6 +23,7 @@ from apps.authenticacion.api.serializer.serializers import ResourcesSerializers,
 import bcrypt, logging
 from django.shortcuts import get_object_or_404
 from django.http import FileResponse
+import json
 
 ##  USER ##
 class CustomUserList(generics.ListCreateAPIView):
@@ -277,13 +278,20 @@ class ProfileView(generics.RetrieveUpdateAPIView):
         if self.request.user.is_authenticated:
             return self.request.user
 
+
 class RegistroView(APIView):
     def post(self, request):
-        serializer = RegistroSerializzer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            return Response({'message': 'Registro exitoso'}, status=201)
-        return Response(serializer.errors, status=400)
+        try:
+            serializer = RegistroSerializzer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response({"message": "Registro exitoso"}, status=status.HTTP_201_CREATED)
+
+            # Retornar los errores con codificación correcta
+            return Response({"errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
       
 class LogoutView(APIView):
     def get(self, request, *args, **kwargs):
