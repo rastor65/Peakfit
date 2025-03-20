@@ -147,8 +147,11 @@ PASSWORD_HASHERS = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'peakfit',
+        'NAME': 'railway',
         'USER': 'root',
+        'PASSWORD': 'TWjPbGXgOxKhvVKlPwMgMhhoOLBMuqAH',
+        'HOST': 'switchback.proxy.rlwy.net',
+        'PORT': '51406', 
         'OPTIONS': {'sql_mode': 'STRICT_ALL_TABLES', 'charset': 'utf8mb4',},
     }
 }
