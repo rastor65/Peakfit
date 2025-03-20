@@ -11,7 +11,7 @@ import { UsuariosService } from 'src/app/core/services/dashboard/usuarios.servic
 import { HttpHeaders } from '@angular/common/http';
 import { Person } from 'src/app/models/user/person';
 import { switchMap } from 'rxjs/operators';
-import { catchError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Observable, of, forkJoin } from 'rxjs';
 import { ChangeDetectorRef } from '@angular/core';
 import { Usuario, Rol } from 'src/app/models/user/person';
@@ -272,7 +272,7 @@ export class UsuariosComponent implements OnInit {
             ),
           ]);
         }),
-        catchError(error => {
+        catchError((error: any) => {
           this.failedUsers.push({ ...userData, error: error || 'Error desconocido' });
           console.log("usuario fallido: ", this.failedUsers)
           return of(null); // Retornar un valor neutral para que forkJoin continúe
@@ -334,7 +334,7 @@ export class UsuariosComponent implements OnInit {
             ),
           ]);
         }),
-        catchError((error) => {
+        catchError((error:any) => {
           console.error(`Error al reintentar registro de usuario: ${userData.email}`, error);
           finalFailedUsers.push(userData);
           return of([]); // Si hay error, lo marcamos como fallido y continuamos
