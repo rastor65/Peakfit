@@ -1,6 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.contrib.auth.models import UserManager
+from django.core.validators import MinValueValidator, MaxValueValidator
+from django.utils import timezone
 
 
 def path_to_avatar(instance, filename):              
@@ -144,37 +146,51 @@ class ResourceRol(BaseModel):
         ]
 
 class Medicion(BaseModel):
-    fecha = models.DateField(auto_now_add=True)  # Asigna la fecha automáticamente
-    talla = models.FloatField()
-    peso = models.FloatField()
-    perimetro_cintura = models.FloatField(null=True)
-    perimetro_cadera = models.FloatField(null=True)
-    pliegue_pectoral = models.FloatField(null=True, blank=True)
-    pliegue_abdominal = models.FloatField(null=True, blank=True)
-    pliegue_antemuslo = models.FloatField(null=True, blank=True)
-    pliegue_tricipal = models.FloatField(null=True, blank=True)
-    pliegue_iliocrestal = models.FloatField(null=True, blank=True)
-    fuerza_manoderecha = models.FloatField(null=True)
-    fuerza_manoizquierda = models.FloatField(null=True)
-    equilibrio = models.FloatField(null=True, blank=True)
-    resistencia_abdominal = models.FloatField(null=True, blank=True)
-    fuerza_explosiva_i = models.FloatField(null=True, blank=True)
-    fuerza_explosiva_f = models.FloatField(null=True, blank=True)
-    resistencia_cardiorespiratoria = models.FloatField(null=True, blank=True)
-    tiempo_resistencia_cardiorespiratoria = models.FloatField(null=True, blank=True)
-    frecuencia_cardiaca = models.FloatField(null=True, blank=True)
-    volumen_max_oxigeno = models.FloatField(null=True, blank=True)
-    flexibilidad = models.FloatField(null=True, blank=True)
-    caff = models.FloatField(null=True, blank=True)
-    usuario = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="mediciones")
+    fecha = models.DateField(auto_now_add=True)
+    talla = models.DecimalField(max_digits=5, decimal_places=2, validators=[MinValueValidator(0.5), MaxValueValidator(2.5)])  # Metros
+    peso = models.DecimalField(max_digits=6, decimal_places=2, validators=[MinValueValidator(1), MaxValueValidator(300)])
+    
+    perimetro_cintura = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    perimetro_cadera = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+
+    pliegue_pectoral = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    pliegue_abdominal = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    pliegue_antemuslo = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    pliegue_tricipal = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    pliegue_iliocrestal = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+
+    fuerza_manoderecha = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    fuerza_manoizquierda = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+
+    equilibrio = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    resistencia_abdominal = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    fuerza_explosiva_i = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    fuerza_explosiva_f = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    resistencia_cardiorespiratoria = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    tiempo_resistencia_cardiorespiratoria = models.DurationField(null=True, blank=True)
+    frecuencia_cardiaca = models.PositiveIntegerField(null=True, blank=True, validators=[MinValueValidator(30), MaxValueValidator(220)])
+    volumen_max_oxigeno = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    flexibilidad = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    caff = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+
+    usuario = models.ForeignKey("authenticacion.CustomUser", on_delete=models.CASCADE, related_name="mediciones")
+
+    class Meta:
+        verbose_name = "Medición"
+        verbose_name_plural = "Mediciones"
+        ordering = ["-fecha"]
+
+    def __str__(self):
+        return f"Medición de {self.usuario} el {self.fecha}"
 
 class Entrenamiento(BaseModel):
-    usuario = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="entrenamientos")
-    entrenador = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="entrenamientos_asignados")
+    usuario = models.ForeignKey('CustomUser', on_delete=models.CASCADE, related_name="entrenamientos")
+    entrenador = models.ForeignKey('CustomUser', on_delete=models.CASCADE, related_name="entrenamientos_asignados")
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField(blank=True, null=True)
     duracion_semanas = models.IntegerField()
-    
+    semanas = models.JSONField(default=list)  # Aquí va el JSON con semanas, ejercicios y días
+
     def __str__(self):
         return f"{self.nombre} - {self.usuario.username} (Entrenador: {self.entrenador.username})"
 

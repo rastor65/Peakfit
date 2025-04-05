@@ -4,8 +4,10 @@ import environ
 from django.core.mail import send_mail
 import os
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 #BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 env = environ.Env(
     DEBUG=(bool, False)
@@ -24,6 +26,9 @@ SECRET_KEY = 'django-insecure-a#xmneb=v#5y@$2c*sxhl3s2q58i1x8r*7(l8#!(4-4wp37^g&
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+#IA
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 import os
@@ -144,15 +149,27 @@ PASSWORD_HASHERS = [
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'railway',
+#         'USER': 'root',
+#         'PASSWORD': 'TWjPbGXgOxKhvVKlPwMgMhhoOLBMuqAH',
+#         'HOST': 'switchback.proxy.rlwy.net',
+#         'PORT': '51406', 
+#         'OPTIONS': {'sql_mode': 'STRICT_ALL_TABLES', 'charset': 'utf8mb4',},
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'railway',
+        'NAME': 'peakfit',
         'USER': 'root',
-        'PASSWORD': 'TWjPbGXgOxKhvVKlPwMgMhhoOLBMuqAH',
-        'HOST': 'switchback.proxy.rlwy.net',
-        'PORT': '51406', 
-        'OPTIONS': {'sql_mode': 'STRICT_ALL_TABLES', 'charset': 'utf8mb4',},
+        'PASSWORD': '',
+        'HOST': '127.0.0.1',
+        'PORT': '3306', 
+        'OPTIONS': {'sql_mode': 'STRICT_ALL_TABLES'},
     }
 }
 

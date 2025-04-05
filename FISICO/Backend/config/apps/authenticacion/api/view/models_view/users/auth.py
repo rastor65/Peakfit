@@ -49,10 +49,6 @@ class CustomUserList(generics.ListCreateAPIView):
         }
         return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
-# class CustomLogEntryListCreateView(generics.ListCreateAPIView):
-#     queryset = CustomLogEntry.objects.all()
-#     serializer_class = CustomLogEntrySerializer
-
 def descargar_archivo(request, pk):
     contenido = get_object_or_404(CustomUser, pk=pk, is_active=True)
     archivo = contenido.avatar
@@ -64,25 +60,20 @@ class UserDetail(generics.RetrieveAPIView):
     serializer_class = UserSerializer
 
     def retrieve(self, request, *args, **kwargs):
-        try:
-            instance = self.get_object()
-            if instance.is_active:
-                serializer = self.get_serializer(instance)
-                return Response(serializer.data)
-            else:
-                response_data = {
+        instance = get_object_or_404(CustomUser, pk=kwargs.get("pk"))
+
+        if not instance.is_active:
+            return Response(
+                {
                     "ok": False,
                     "message": "Usuario no encontrado",
                     "errors": {"error": ["Usuario no encontrado"]},
-                }
-                return Response(response_data, status=status.HTTP_404_NOT_FOUND)
-        except CustomUser.DoesNotExist:
-            response_data = {
-                "ok": False,
-                "message": "Usuario no encontrado",
-                "errors": {"error": ["Usuario no encontrado"]},
-            }
-            return Response(response_data, status=status.HTTP_404_NOT_FOUND)
+                },
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
         
 class UserPublic(generics.RetrieveAPIView):
     queryset = CustomUser.objects.all()
@@ -121,46 +112,31 @@ class UserCreate(generics.CreateAPIView):
         }
         return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
     
-class UserUpdate(generics.UpdateAPIView):
+class UserUpdate(generics.RetrieveUpdateAPIView):  # Permite GET y PUT/PATCH
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
 
     def get_object(self):
-        try:
-            request_user = self.kwargs['pk']
-            user = CustomUser.objects.get(pk=request_user)
-            return user
-        except CustomUser.DoesNotExist:
-            return None
+        return get_object_or_404(CustomUser, pk=self.kwargs['pk'])
 
     def update(self, request, *args, **kwargs):
         user = self.get_object()
 
-        if user is None:
-            response_data = {
-                "ok": False,
-                "message": "Usuario no encontrado",
-                "errors": {"error": ["Usuario no encontrado"]},
-            }
-            return Response(response_data, status=status.HTTP_404_NOT_FOUND)
+        # Permitir actualizaciones parciales (sin requerir todos los campos)
+        user_serializer = UserSerializer(user, data=request.data, partial=True) 
 
-        user_serializer = UserSerializer(
-            user, data=request.data, partial=kwargs.get('partial', False))
-        
         if user_serializer.is_valid():
             user_serializer.save()
-            response_data = {
+            return Response({
                 "ok": True,
-                "message": "Usuario actualizado exitosamente",
-            }
-            return Response(response_data)
+                "message": "Usuario actualizado exitosamente"
+            })
         else:
-            response_data = {
+            return Response({
                 "ok": False,
                 "message": "Error de validación",
                 "errors": user_serializer.errors,
-            }
-            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+            }, status=status.HTTP_400_BAD_REQUEST)
         
 class UserChangePasswordView(UpdateAPIView):
     queryset = CustomUser.objects.all()
