@@ -756,9 +756,9 @@ export class EntrenadorComponent implements OnInit {
   }
 
   hasEjerciciosParaDia(dia: string): boolean {
-    if (!this.selectedEntrenamiento?.semanas) 
+    if (!this.selectedEntrenamiento?.semanas)
       return false;
-    const diaIndex = this.diasSemana.indexOf(dia); 
+    const diaIndex = this.diasSemana.indexOf(dia);
     return this.selectedEntrenamiento.semanas.some(
       (semana: any) => semana.ejercicios.some(
         (ejercicio: any) => ejercicio.dias[diaIndex]));
